@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoodShop — Admin Dashboard</title>
+
+<!-- Bootstrap 5 CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<!-- Google Font: Manrope -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Custom styles -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     SIDEBAR
+============================================================ -->
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<nav class="sidebar" id="sidebar" aria-label="Primary">
+  <div class="sidebar-brand">
+    <div class="mark">M</div>
+    <div class="brand-text">
+      <span class="name">MoodShop</span>
+      <span class="by">by Areej Fatima</span>
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <div class="sidebar-section-label">Menu</div>
+    <a href="#" class="nav-item-link active" data-page="Overview">
+      <i class="bi bi-grid-1x2-fill"></i><span>Overview</span>
+    </a>
+    <a href="#" class="nav-item-link" data-page="Analytics">
+      <i class="bi bi-graph-up-arrow"></i><span>Analytics</span>
+    </a>
+    <a href="#" class="nav-item-link" data-page="Reports">
+      <i class="bi bi-file-earmark-bar-graph"></i><span>Reports</span>
+    </a>
+    <a href="#" class="nav-item-link" data-page="Settings">
+      <i class="bi bi-gear-fill"></i><span>Settings</span>
+    </a>
+  </div>
+
+  <div class="sidebar-footer">
+    <a href="#" class="nav-item-link" style="margin-bottom:0;">
+      <i class="bi bi-box-arrow-left"></i><span>Sign out</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     MAIN
+============================================================ -->
+<div class="app-main" id="appMain">
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <button class="icon-btn" id="sidebarToggle" aria-label="Toggle sidebar">
+      <i class="bi bi-list" style="font-size:20px;"></i>
+    </button>
+
+    <div class="search-wrap d-none d-sm-block">
+      <i class="bi bi-search"></i>
+      <input type="text" class="search-input" placeholder="Search orders, shoppers..." aria-label="Search">
+    </div>
+
+    <div class="ms-auto d-flex align-items-center gap-2">
+
+      <div class="theme-switch" id="themeSwitch" role="button" aria-label="Toggle dark mode">
+        <div class="knob"><i class="bi bi-sun-fill" id="themeIcon" style="color:#d9a130;"></i></div>
+      </div>
+
+      <div class="dropdown">
+        <button class="icon-btn" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-bell"></i>
+          <span class="notif-dot"></span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end" style="width:300px;">
+          <div class="px-2 py-1 mb-1 d-flex justify-content-between align-items-center">
+            <strong style="font-size:13.5px;">Notifications</strong>
+            <span class="text-muted" style="font-size:11.5px;">3 new</span>
+          </div>
+          <!-- Each notification navigates to a target page (data-goto) and
+               optionally highlights a specific element there (data-highlight) -->
+          <a class="dropdown-item notif-item" href="#" data-goto="Overview" data-highlight="#order-ORD-84021">
+            <span class="dot"></span>
+            <div><div style="font-weight:600;">Payment received</div><div class="text-muted" style="font-size:12px;">Order #ORD-84021 — 2m ago</div></div>
+          </a>
+          <a class="dropdown-item notif-item" href="#" data-goto="Reports" data-highlight="#return-tired-order">
+            <span class="dot"></span>
+            <div><div style="font-weight:600;">New return requested</div><div class="text-muted" style="font-size:12px;">Tired mood order — 18m ago</div></div>
+          </a>
+          <a class="dropdown-item notif-item" href="#" data-goto="Reports" data-highlight="#weekly-report-card">
+            <span class="dot"></span>
+            <div><div style="font-weight:600;">Weekly report ready</div><div class="text-muted" style="font-size:12px;">Mood performance export — 1h ago</div></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <div class="profile-trigger" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="avatar">AR</div>
+          <div class="d-none d-md-block">
+            <div style="font-size:13px; font-weight:700; line-height:1.1;">Areej F.</div>
+            <div style="font-size:11px; color:var(--text-600); line-height:1.1;">Admin</div>
+          </div>
+          <i class="bi bi-chevron-down" style="font-size:11px; color:var(--text-600);"></i>
+        </div>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a class="dropdown-item" href="#" data-goto="Settings"><i class="bi bi-person me-2"></i>My profile</a>
+          <a class="dropdown-item" href="#" data-goto="Settings"><i class="bi bi-gear me-2"></i>Account settings</a>
+          <hr class="my-2">
+          <a class="dropdown-item" href="#"><i class="bi bi-box-arrow-left me-2"></i>Sign out</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="content">
+
+    <div class="page-heading">
+      <h1 id="pageTitle">Overview</h1>
+      <p id="pageSubtitle">Here's how shoppers are moving through MoodShop today.</p>
+    </div>
+
+    <!-- ============================================================
+         PAGE: OVERVIEW
+    ============================================================ -->
+    <section class="page-section active" id="page-overview">
+
+      <!-- KPI ROW — each card carries a mood accent + colored base bar -->
+      <div class="row g-3 mb-3">
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon" style="background:var(--mood-celebratory-soft); color:var(--mood-celebratory);"><i class="bi bi-currency-exchange"></i></div>
+            </div>
+            <div class="kpi-label">Total Sales</div>
+            <div class="kpi-value num-tabular">Rs 8,42,900</div>
+            <span class="kpi-badge up"><i class="bi bi-arrow-up-short"></i>12.4%</span>
+            <span class="kpi-caption">vs last month</span>
+            <div class="kpi-bar" style="background:var(--mood-celebratory);"></div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon" style="background:var(--mood-happy-soft); color:var(--mood-happy);"><i class="bi bi-people-fill"></i></div>
+            </div>
+            <div class="kpi-label">Active Shoppers</div>
+            <div class="kpi-value num-tabular">12,847</div>
+            <span class="kpi-badge up"><i class="bi bi-arrow-up-short"></i>8.1%</span>
+            <span class="kpi-caption">vs last month</span>
+            <div class="kpi-bar" style="background:var(--mood-happy);"></div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon" style="background:var(--mood-bored-soft); color:var(--mood-bored);"><i class="bi bi-emoji-heart-eyes"></i></div>
+            </div>
+            <div class="kpi-label">Mood Match Rate</div>
+            <div class="gauge-wrap"><canvas id="moodGaugeChart"></canvas></div>
+            <span class="kpi-badge down"><i class="bi bi-arrow-down-short"></i>1.8%</span>
+            <span class="kpi-caption">vs last month</span>
+            <div class="kpi-bar" style="background:var(--mood-bored);"></div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <div class="kpi-icon" style="background:var(--mood-tired-soft); color:var(--mood-tired);"><i class="bi bi-arrow-return-left"></i></div>
+            </div>
+            <div class="kpi-label">Pending Returns</div>
+            <div class="kpi-value num-tabular">27</div>
+            <span class="kpi-badge down"><i class="bi bi-arrow-up-short"></i>5.3%</span>
+            <span class="kpi-caption">vs last month</span>
+            <div class="kpi-bar" style="background:var(--mood-tired);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHARTS ROW -->
+      <div class="row g-3 mb-3">
+        <div class="col-12 col-lg-8">
+          <div class="panel-card">
+            <div class="panel-head">
+              <div>
+                <h2>Monthly Performance</h2>
+                <p>Sales vs active shoppers, last 12 months</p>
+              </div>
+              <div class="chip-group btn-group" role="group" aria-label="Chart range">
+                <button type="button" class="btn active" data-range="12m">12M</button>
+                <button type="button" class="btn" data-range="6m">6M</button>
+                <button type="button" class="btn" data-range="3m">3M</button>
+              </div>
+            </div>
+            <div class="chart-canvas-wrap" style="height:260px;">
+              <canvas id="mainChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="panel-card">
+            <div class="panel-head">
+              <div>
+                <h2>Sales by Mood</h2>
+                <p>Share of orders by mood picked at checkout</p>
+              </div>
+            </div>
+            <div class="chart-canvas-wrap" style="height:220px;">
+              <canvas id="donutChart"></canvas>
+            </div>
+            <div class="d-flex flex-wrap gap-3 mt-3" id="donutLegend"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLE -->
+      <div class="table-card">
+        <div class="table-toolbar">
+          <div>
+            <h2 style="font-size:15.5px;">Recent Orders</h2>
+            <p style="font-size:12.5px; color:var(--text-600); margin:2px 0 0;">Latest orders across all shoppers</p>
+          </div>
+          <div class="table-search">
+            <i class="bi bi-search"></i>
+            <input type="text" id="tableSearchInput" placeholder="Filter orders...">
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table" id="txTable">
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Mood</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="txTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="pagination-row">
+          <span style="font-size:12.5px; color:var(--text-600);" id="paginationInfo"></span>
+          <div class="d-flex gap-1" id="paginationControls"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PAGE: ANALYTICS
+    ============================================================ -->
+    <section class="page-section" id="page-analytics">
+      <div class="row g-3 mb-3">
+        <div class="col-12 col-lg-8">
+          <div class="panel-card">
+            <div class="panel-head">
+              <div>
+                <h2>Mood Trends</h2>
+                <p>How shopper moods are shifting over time</p>
+              </div>
+            </div>
+            <div class="chart-canvas-wrap" style="height:280px;">
+              <canvas id="analyticsChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="panel-card h-100">
+            <div class="panel-head">
+              <div>
+                <h2>Quick Stats</h2>
+                <p>Snapshot of shopper behaviour</p>
+              </div>
+            </div>
+            <div class="d-flex flex-column gap-3">
+              <div>
+                <div class="kpi-label">Avg. session time</div>
+                <div class="kpi-value" style="font-size:20px;">6m 42s</div>
+              </div>
+              <div>
+                <div class="kpi-label">Cart abandonment</div>
+                <div class="kpi-value" style="font-size:20px;">31.2%</div>
+              </div>
+              <div>
+                <div class="kpi-label">Repeat shoppers</div>
+                <div class="kpi-value" style="font-size:20px;">44.6%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PAGE: REPORTS  (destination for return + weekly report notifs)
+    ============================================================ -->
+    <section class="page-section" id="page-reports">
+
+      <div class="panel-card mb-3">
+        <div class="panel-head">
+          <div>
+            <h2>Pending Returns</h2>
+            <p>Return requests awaiting review</p>
+          </div>
+        </div>
+        <div class="d-flex flex-column gap-2">
+          <div class="return-row" id="return-tired-order">
+            <div class="user-cell">
+              <div class="mini-avatar">UG</div>
+              <div>
+                <div style="font-weight:700;">Usman Ghani</div>
+                <div style="font-size:12px; color:var(--text-600);">Order #ORD-84016 · Tired mood order · 18m ago</div>
+              </div>
+            </div>
+            <span class="mood-pill" style="background:var(--mood-tired-soft); color:var(--mood-tired);">Tired</span>
+          </div>
+          <div class="return-row">
+            <div class="user-cell">
+              <div class="mini-avatar">BA</div>
+              <div>
+                <div style="font-weight:700;">Bilal Ahmed</div>
+                <div style="font-size:12px; color:var(--text-600);">Order #ORD-84018 · Bored mood order · 1d ago</div>
+              </div>
+            </div>
+            <span class="mood-pill" style="background:var(--mood-bored-soft); color:var(--mood-bored);">Bored</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <div class="panel-head">
+          <div>
+            <h2>Recent Reports</h2>
+            <p>Generated exports ready to download</p>
+          </div>
+        </div>
+        <div class="d-flex flex-column gap-2">
+          <div class="report-row" id="weekly-report-card">
+            <div class="d-flex align-items-center gap-3">
+              <div class="kpi-icon" style="background:var(--mood-bored-soft); color:var(--mood-bored);"><i class="bi bi-file-earmark-bar-graph"></i></div>
+              <div>
+                <div style="font-weight:700;">Weekly Mood Performance Report</div>
+                <div style="font-size:12px; color:var(--text-600);">Generated Sep 12, 2026 · 1h ago</div>
+              </div>
+            </div>
+            <button class="btn-pill-navy"><i class="bi bi-download"></i>Download</button>
+          </div>
+          <div class="report-row">
+            <div class="d-flex align-items-center gap-3">
+              <div class="kpi-icon" style="background:var(--mood-happy-soft); color:var(--mood-happy);"><i class="bi bi-file-earmark-bar-graph"></i></div>
+              <div>
+                <div style="font-weight:700;">Monthly Sales Summary</div>
+                <div style="font-size:12px; color:var(--text-600);">Generated Sep 01, 2026</div>
+              </div>
+            </div>
+            <button class="btn-pill-navy"><i class="bi bi-download"></i>Download</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PAGE: SETTINGS
+    ============================================================ -->
+    <section class="page-section" id="page-settings">
+      <div class="panel-card" style="max-width:560px;">
+        <div class="panel-head">
+          <div>
+            <h2>Account Settings</h2>
+            <p>Update your admin profile and preferences</p>
+          </div>
+        </div>
+        <div class="d-flex flex-column gap-3">
+          <div>
+            <label class="kpi-label d-block mb-1">Display name</label>
+            <input type="text" class="search-input" style="height:40px;" value="Areej R.">
+          </div>
+          <div>
+            <label class="kpi-label d-block mb-1">Support email</label>
+            <input type="email" class="search-input" style="height:40px;" value="admin@moodshop.pk">
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="notifToggle" checked>
+            <label class="form-check-label" for="notifToggle" style="font-size:13.5px;">Email me new order notifications</label>
+          </div>
+          <button class="btn-pill-navy align-self-start" id="saveSettingsBtn"><i class="bi bi-check2"></i>Save changes</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
